@@ -42,8 +42,6 @@ export default function Home() {
   //   loadCategoryItems()
 
   // }, []);
-
-  //test
   return (
     <>
       <Header cartCount={cartCount} />
