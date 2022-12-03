@@ -19,29 +19,29 @@ export default function Home() {
 
   const [cartCount, setCartCount] = useState(0);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    async function loadCategoryItems() {
+  //   async function loadCategoryItems() {
 
-      await api.get('/product/by-category', {
-        params: {
-          categoryId: categorySelected?.id
-        }
-      })
-        .then((res) => {
-          setProductList(res.data);
-          setProductSelected(res.data[0]);
+  //     await api.get('/product/by-category', {
+  //       params: {
+  //         categoryId: categorySelected?.id
+  //       }
+  //     })
+  //       .then((res) => {
+  //         setProductList(res.data);
+  //         setProductSelected(res.data[0]);
 
-        })
-        .catch(err => {
-          console.log(err);
-        })
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       })
 
-    }
+  //   }
 
-    loadCategoryItems()
+  //   loadCategoryItems()
 
-  }, []);
+  // }, []);
 
   return (
     <>
