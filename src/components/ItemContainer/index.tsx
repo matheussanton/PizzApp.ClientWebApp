@@ -6,7 +6,7 @@ import { ItemProps as ItemPropsType } from '../../pages'
 
 interface ItemContainerProps {
     itemData: ItemPropsType;
-    addItemToCart: () => void;
+    addItemToCart: (item: ItemPropsType) => void;
 }
 const baseURL = process.env.SERVICE_BASEURL;
 export function ItemContainer({ addItemToCart, itemData }: ItemContainerProps) {
@@ -20,7 +20,7 @@ export function ItemContainer({ addItemToCart, itemData }: ItemContainerProps) {
 
                 <div className={styles.Footer}>
                     <p className={styles.ItemPrice}>R$ {itemData.price},00</p>
-                    <div onClick={addItemToCart}
+                    <div onClick={() => addItemToCart(itemData)}
                         className={styles.AddBtn}>
                         <p>+</p>
                     </div>

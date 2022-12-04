@@ -1,0 +1,19 @@
+.cartTitle {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+
+.ItemImageBox {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60%;
+
+    img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
