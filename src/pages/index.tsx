@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../../styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 import { Header } from '../components/Header'
 import { SearchBar } from '../components/SearchBar'
@@ -11,69 +12,79 @@ import { ItemContainer } from '../components/ItemContainer'
 
 import { Container, Row } from "react-bootstrap";
 
-import Data from '../db.json'
-
 import { api } from '../services/api'
+
+import Fab from '@mui/material/Fab';
+
+import { MdMessage } from 'react-icons/md'
+
+export type ItemProps = {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  banner: string;
+  categoryId: string;
+}
 
 export default function Home() {
 
   const [cartCount, setCartCount] = useState(0);
+  const [allProductsList, setAllProductsList] = useState<ItemProps[] | []>([]);
 
-  // useEffect(() => {
+  function addItemToCart() {
+    setCartCount(cartCount + 1)
+  }
 
-  //   async function loadCategoryItems() {
+  useEffect(() => {
 
-  //     await api.get('/product/by-category', {
-  //       params: {
-  //         categoryId: categorySelected?.id
-  //       }
-  //     })
-  //       .then((res) => {
-  //         setProductList(res.data);
-  //         setProductSelected(res.data[0]);
+    async function loadAllProducts() {
 
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       })
+      await api.get('/product')
+        .then((res) => {
+          setAllProductsList(res.data);
+          console.log(res.data);
 
-  //   }
+        })
+        .catch(err => {
+          console.log(err);
+        })
 
-  //   loadCategoryItems()
+    }
 
-  // }, []);
+    loadAllProducts()
+
+  }, []);
+
+
+
   return (
     <>
       <Header cartCount={cartCount} />
-      <SearchBar data={Data} />
+      <SearchBar data={allProductsList} />
 
       <ContrastContainer />
 
       <Container style={{ width: '90%' }}>
         <Row style={{ justifyContent: 'space-between' }}>
-          <ItemContainer />
-          <ItemContainer />
-
-          <ItemContainer />
-          <ItemContainer />
-
-          <ItemContainer />
-          <ItemContainer />
-
-          <ItemContainer />
-          <ItemContainer />
-
+          {allProductsList.map((item) => {
+            return (
+              <ItemContainer
+                key={item.id}
+                addItemToCart={addItemToCart} itemData={item} />
+            );
+          })}
         </Row>
       </Container>
 
-      {/* <div className="container"
-        style={{ backgroundColor: '#df1414' }}>
-        <ItemContainer />
-        <ItemContainer />
+      <Link href="/bot" className={styles.FloatBtn}>
+        <Fab aria-label="chat" color="primary">
+          <MdMessage size={24} color="#fff" />
+        </Fab>
+      </Link>
 
-      </div> */}
+      <div className={styles.BlankFooter}></div>
 
-      <button onClick={() => setCartCount(cartCount + 1)}>add item</button>
     </>
   )
 }

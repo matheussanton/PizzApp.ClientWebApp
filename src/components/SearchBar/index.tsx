@@ -4,7 +4,14 @@ import { useEffect, useState } from 'react'
 import { MdSearch, MdOutlineClose } from 'react-icons/md'
 import { IconContext } from 'react-icons'
 
-export function SearchBar({ data }) {
+import { ItemProps as ItemPropsType } from '../../pages'
+
+interface ItemProps {
+    data: ItemPropsType[]
+}
+
+export function SearchBar({ data }: ItemProps) {
+
     const [inputSearch, setInputSearch] = useState("")
     const [filterSearch, setFilterSearch] = useState([])
 
@@ -12,7 +19,7 @@ export function SearchBar({ data }) {
         setInputSearch(event.target.value)
 
         const newFilter = data.filter(value => {
-            return value.title.toLowerCase().includes(inputSearch.toLowerCase())
+            return value.name.toLowerCase().includes(inputSearch.toLowerCase())
         })
 
         setFilterSearch(newFilter)
@@ -28,7 +35,7 @@ export function SearchBar({ data }) {
     }, [inputSearch])
 
     function handleClickAutoComplete(value) {
-        setInputSearch(value.title)
+        setInputSearch(value.name)
         setFilterSearch([])
     }
 
@@ -57,7 +64,7 @@ export function SearchBar({ data }) {
                             <IconContext.Provider value={{ color: "#B8B8B8", size: "22px" }}>
                                 <MdSearch />
                             </IconContext.Provider>
-                            <p>{value.title}</p>
+                            <p>{value.name}</p>
                         </div>
                     ))}
                 </div>
