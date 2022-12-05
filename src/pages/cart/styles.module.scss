@@ -4,16 +4,40 @@
     font-weight: bold;
 }
 
-
-.ItemImageBox {
-    margin: 10px;
-    display: flex;
-    align-items: center;
+.resume {
     justify-content: center;
-    min-height: 60%;
+    align-items: center;
+    margin: 2rem auto;
+    display: flex;
+    gap: 60px;
+}
 
-    img {
-        max-width: 150px;
-        max-height: 150px;
-    }
+.BlankFooter {
+    height: 80px;
+}
+
+.finishOrderButton {
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--orange-900);
+    color: var(--black);
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+
+    box-shadow: 3px 3px 6px #c7c7c7;
+}
+
+.backToHome {
+    padding: 10px;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--black);
+}
+
+.total {
+    text-align: center;
+    margin: 1rem auto;
 }

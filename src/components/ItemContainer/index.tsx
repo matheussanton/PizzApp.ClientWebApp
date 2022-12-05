@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { ItemProps as ItemPropsType } from '../../pages'
 

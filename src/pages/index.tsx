@@ -104,7 +104,7 @@ export default function Home() {
 
   const [allProductsList, setAllProductsList] = useState<ItemProps[] | []>([]);
 
-  const [cartItems, setCartItems] = useState<CartItemsProps[] | []>([]);
+  const [cartItems, setCartItems] = useState<CartItemsProps[] | []>(undefined);
 
   function addItemToCart(item: ItemProps) {
 
@@ -152,7 +152,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    localStorage.setItem("@PizzAppCartItems", JSON.stringify(cartItems));
+    if (cartItems !== undefined) {
+      localStorage.setItem("@PizzAppCartItems", JSON.stringify(cartItems));
+    }
   }, [cartItems])
 
   useEffect(() => {
@@ -162,13 +164,13 @@ export default function Home() {
       await api.get('/product')
         .then((res) => {
           setAllProductsList(res.data);
-
-          localStorage.setItem("@PizzAppCartItems", JSON.stringify(cartItems));
         })
         .catch(err => {
           console.log(err);
         })
 
+      let cartItemsList = localStorage.getItem("@PizzAppCartItems");
+      setCartItems(JSON.parse(cartItemsList) || []);
     }
 
     loadAllProducts()
@@ -179,7 +181,7 @@ export default function Home() {
 
   return (
     <>
-      <Header cartCount={cartItems.length} showCartIcon={true} />
+      <Header cartCount={cartItems === undefined ? 0 : cartItems.length} showCartIcon={true} />
       <SearchBar data={allProductsList} />
 
       <ContrastContainer />
@@ -196,11 +198,6 @@ export default function Home() {
         </Row>
       </Container>
 
-      {/* <Link href="/chat" className={styles.FloatBtn}>
-        <Fab aria-label="chat" color="primary">
-          <MdMessage size={24} color="#fff" />
-        </Fab>
-      </Link> */}
       <ThemeProvider theme={theme}>
         <ChatBot steps={steps}
           floating={true}
